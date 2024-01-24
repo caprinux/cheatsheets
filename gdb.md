@@ -38,4 +38,49 @@ The following commands are commands that only work with GDB extensions (tested o
 
 ## Breakpoints
 
+> ELI5: Think of a breakpoint as a bookmark. When you place a bookmark in a book and flip through a book, it allows you to quickly and easily stop at that specific page in the book, to read an analyze the contents. 
+>
+> Similarly, we can set a breakpoint in a program such that the program will be paused when it tries to execute the instruction at the breakpoint. This allows us to inspect/modify the contents of the memory and the state of the program at that point of execution.
+
+| command | description |
+| --- | --- |
+| (b)reak *<func_name/address> | set a breakpoint  |
+| info break | view the list of breakpoints |
+| disable <breakpoint number> | disable a specified breakpoint |
+| enable <breakpoint number> | enable a specified breakpoint |
+| delete <breakpoint number> | delete the breakpoint |
+
 ## Memory Manipulation
+
+We can also view and interpret memory in the program in many ways. One main way is using the **examine** command which follows the following syntax
+
+`x/<num><size><format>`
+
+We can seek the documentation using the `help x` command in gdb.
+
+> Examine memory: x/FMT ADDRESS.8RESS is an expression for the memory address to examine.
+> FMT is a repeat count followed by a format letter and a size letter.
+> Format letters are o(octal), x(hex), d(decimal), u(unsigned decimal),
+>   t(binary), f(float), a(address), i(instruction), c(char), s(string)
+>   and z(hex, zero padded on the left).
+> Size letters are b(byte), h(halfword), w(word), g(giant, 8 bytes).
+> The specified number of objects of the specified size are printed
+> according to the format.  If a negative number is specified, memory is
+> examined backward from the address.
+> 
+> Defaults for format and size letters are those previously used.
+> Default count is 1.  Default address is following last thing printed
+> with this command or "print".
+
+Here are some examples:
+
+| command | description |
+| --- | --- |
+| x/5gx <address> | view **5** giant-sized (aka QWORD) hex at specified address |
+| x/20wd <address> | view **20** word-sized (aka DWORD) hex at specified address |
+| x/s <address> | view string at specified address |
+
+
+## Miscellaneous Information
+
+Apart from providing specific addresses, we can also use other values such as register values by prepending it with a `$` sign _(i.e. x/gx $rsp allows us to inspect the first QWORD hex on the stack)_
