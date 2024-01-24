@@ -36,7 +36,7 @@ The following commands are commands that only work with GDB extensions (tested o
 | nextret | execute until the next return instruction |
 
 
-## Breakpoints
+## Breakpoints, Tracing, Watchpoints
 
 > ELI5: Think of a breakpoint as a bookmark. When you place a bookmark in a book and flip through a book, it allows you to quickly and easily stop at that specific page in the book, to read an analyze the contents. 
 >
@@ -49,6 +49,27 @@ The following commands are commands that only work with GDB extensions (tested o
 | disable <breakpoint number> | disable a specified breakpoint |
 | enable <breakpoint number> | enable a specified breakpoint |
 | delete <breakpoint number> | delete the breakpoint |
+
+Sometimes, we might just want to just want to extract certain information from a breakpoint and we do not need to necessarily stop the program there.
+
+An example is that we can use breakpoints as a hook to print arguments that are passed into a specific function.
+
+```
+break *malloc
+commands
+silent
+printf "x is %d\n",x
+cont
+end
+```
+
+Alternatively, we can also go one step further and use the **dprintf** command.
+
+```
+dprintf *malloc, "%x\n", $rdi
+```
+
+which prints out the argument passed to **malloc**.
 
 ## Memory Manipulation
 
@@ -80,6 +101,9 @@ Here are some examples:
 | x/20wd <address> | view **20** word-sized (aka DWORD) hex at specified address |
 | x/s <address> | view string at specified address |
 
+## Watchpoints
+
+Not a very well known feature 
 
 ## Miscellaneous Information
 
