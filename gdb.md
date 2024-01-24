@@ -4,6 +4,7 @@
 
 - GDB is a debugger primarily used in debugging ELF/Linux programs
 - The end goal is to have full read/write control over the memory at any point of execution to aid in analysis
+- GDB is powerful and even supports scripting. This list is in no way exhaustive of the capabilities of GDB.
 
 ### Extensions
 
@@ -38,6 +39,8 @@ The following commands are commands that only work with GDB extensions (tested o
 
 ## Breakpoints, Tracing, Watchpoints
 
+### Breakpoints
+
 > ELI5: Think of a breakpoint as a bookmark. When you place a bookmark in a book and flip through a book, it allows you to quickly and easily stop at that specific page in the book, to read an analyze the contents. 
 >
 > Similarly, we can set a breakpoint in a program such that the program will be paused when it tries to execute the instruction at the breakpoint. This allows us to inspect/modify the contents of the memory and the state of the program at that point of execution.
@@ -49,6 +52,8 @@ The following commands are commands that only work with GDB extensions (tested o
 | disable <breakpoint number> | disable a specified breakpoint |
 | enable <breakpoint number> | enable a specified breakpoint |
 | delete <breakpoint number> | delete the breakpoint |
+
+### Tracing
 
 Sometimes, we might just want to just want to extract certain information from a breakpoint and we do not need to necessarily stop the program there.
 
@@ -70,6 +75,15 @@ dprintf *malloc, "%x\n", $rdi
 ```
 
 which prints out the argument passed to **malloc**.
+
+### Watchpoints
+
+Another problem we might encounter is that we want to find how a certain part of the memory is being modified. We want to breakpoint on all instructions that modify the memory at address XXX.
+
+| commands | description |
+| --- | --- |
+| awatch *<address> | break when specified memory is accessed |
+| rwatch *<address> | break when value at specified memory is read/written to |
 
 ## Memory Manipulation
 
@@ -100,10 +114,6 @@ Here are some examples:
 | x/5gx <address> | view **5** giant-sized (aka QWORD) hex at specified address |
 | x/20wd <address> | view **20** word-sized (aka DWORD) hex at specified address |
 | x/s <address> | view string at specified address |
-
-## Watchpoints
-
-Not a very well known feature 
 
 ## Miscellaneous Information
 
