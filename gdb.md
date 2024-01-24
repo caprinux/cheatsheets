@@ -82,7 +82,8 @@ Another problem we might encounter is that we want to find how a certain part of
 
 | commands | description |
 | --- | --- |
-| awatch *<address> | break when specified memory is accessed |
+| watch *<address> | break when value at specified memory is written to |
+| awatch *<address> | break when value at specified memory is accessed |
 | rwatch *<address> | break when value at specified memory is read/written to |
 
 ## Memory Manipulation
@@ -114,6 +115,10 @@ Here are some examples:
 | x/5gx <address> | view **5** giant-sized (aka QWORD) hex at specified address |
 | x/20wd <address> | view **20** word-sized (aka DWORD) hex at specified address |
 | x/s <address> | view string at specified address |
+| (tele)scope <address> | pretty print symbols/values at specified address |
+| hexdump <address> | hexdump memory at specific point |
+| vmmap / info proc mappings | print the memory mapping of the running debuggee |
+
 
 ## Miscellaneous Information
 
